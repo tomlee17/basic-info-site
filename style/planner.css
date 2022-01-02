@@ -1,3 +1,7 @@
+h1 {
+    text-align: center;
+}
+
 #clock {
     width: 70vw;
     margin: 1vw auto;
