@@ -1,0 +1,20 @@
+#clock {
+    width: 70vw;
+    margin: 1vw auto;
+    padding: 1vh;
+    background-color: lightblue;
+    text-align: center;
+    font-size: large;
+    white-space: pre;
+}
+
+#alarm {
+    text-align: center;
+    margin: auto;
+    width: 40vw;
+}
+
+fieldset {
+    background-color: burlywood;
+    height: 8vh;
+}

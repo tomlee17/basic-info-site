@@ -4,12 +4,26 @@
 <head>
     <title>Page Title</title>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="#">
+    <link rel="stylesheet" href="./style/planner.css">
 </head>
 
 <body>
-    <h1>INDEX</h1>
-    <script src="#">
+    <h1>PLANNER</h1>
+    <div id='clock'></div>
+    <form>
+        <fieldset id='alarm'>
+            <input type='datetime-local'>
+            <button type='button' id='setAlarm'> Set Alarm</button>
+            <button type="button" id="cancelAlarm">Cancel Alarm</button>
+            <div id='alarmStatus'></div>
+        </fieldset>
+    </form>
+
+    <audio>
+        <source src='./sounds/mixkit-digital-clock-digital-alarm-buzzer-992.wav' type='audio/wav'>
+    </audio>
+
+    <script src="./src/planner.js">
     </script>
 </body>
 
