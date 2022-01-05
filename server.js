@@ -8,6 +8,7 @@ http.createServer((req, res) => {
 
     const fileName = (q.pathname === '/') ? 'index.html' : `.${q.pathname}.html`;
     // console.log(fileName);
+
     fs.readFile(fileName, (err, data) => {
         if (err) {
             //     console.log(err);

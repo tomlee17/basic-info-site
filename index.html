@@ -8,22 +8,40 @@
 </head>
 
 <body>
-    <h1>PLANNER</h1>
+    <h1>TIME & WEATHER</h1>
     <div id='clock'></div>
     <form>
         <fieldset id='alarm'>
             <input type='datetime-local'>
+            <button type="button" id="resumeAlarm">Resume Previous Session Alarm</button>
             <button type='button' id='setAlarm'> Set Alarm</button>
             <button type="button" id="cancelAlarm">Cancel Alarm</button>
             <div id='alarmStatus'></div>
         </fieldset>
     </form>
 
-    <audio>
+    <audio muted>
         <source src='./sounds/mixkit-digital-clock-digital-alarm-buzzer-992.wav' type='audio/wav'>
     </audio>
 
-    <script src="./src/planner.js">
+    <div id='weather'>
+        <input type="text" id='cityInput'>
+        <button>Search</button>
+        <div id='weathCard'>
+            <h2 id='city'></h2>
+            <figure>
+                <img class='icon'>
+                <figcaption></figcaption>
+            </figure>
+            <div id='temp'></div>
+            <div id='feelsLike'></div>
+            <div id='humid'></div>
+        </div>
+    </div>
+    <footer>
+        <a href='./about.html'>Plans</a>
+    </footer>
+    <script src="./src/timeWeather.js">
     </script>
 </body>
 

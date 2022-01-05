@@ -3,13 +3,15 @@ h1 {
 }
 
 #clock {
-    width: 70vw;
+    width: 60vw;
     margin: 1vw auto;
     padding: 1vh;
     background-color: lightblue;
     text-align: center;
-    font-size: large;
+    font-size: 2em;
+    font-weight: bold;
     white-space: pre;
+    border-radius: 2em;
 }
 
 #alarm {
@@ -21,4 +23,36 @@ h1 {
 fieldset {
     background-color: burlywood;
     height: 8vh;
+}
+
+#weather {
+    text-align: center;
+    margin: 1em auto;
+    background-color: springgreen;
+    width: 35vw;
+}
+
+#cityInput {
+    margin-top: 0.5em;
+}
+
+#weathCard {
+    /*  background-image: linear-gradient(to bottom right, rgb(5, 11, 65), rgb(76, 0, 255));*/
+    width: 35vw;
+    height: 35vh;
+    margin: auto;
+    text-align: center;
+}
+
+figure {
+    font-style: italic;
+    margin-left: 0;
+}
+
+#city {
+    margin-top: 0.5em;
+}
+
+footer {
+    text-align: center;
 }
