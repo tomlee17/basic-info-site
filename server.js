@@ -6,7 +6,7 @@ http.createServer((req, res) => {
     const q = new URL(req.url, baseURL);
     //  console.log(q);
 
-    const fileName = (q.pathname === '/') ? 'index.html' : `.${q.pathname}.html`;
+    const fileName = (q.pathname === '/') ? 'time.html' : `.${q.pathname}.html`;
     // console.log(fileName);
 
     fs.readFile(fileName, (err, data) => {

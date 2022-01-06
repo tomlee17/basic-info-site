@@ -8,8 +8,32 @@
 </head>
 
 <body>
-    <h1>ABOUT</h1>
-    <script src="#">
+    <h1>SCHEDULE PLANNER</h1>
+    <form id='newBook'>
+        <fieldset>
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title" class='inputField'><br><br>
+
+            <label for="author">Author:</label><br>
+            <input type="text" id="author" name="author" class='inputField'><br><br>
+
+            <label for="pages">No. of pages:</label><br>
+            <input type="text" id="pages" name="pages" class='inputField'><br><br>
+
+            <label id="readLabel" for='readStatus'>Not read / Read</label>
+            <input type="checkbox" id='readStatus' name='readStatus' class='inputField'>
+            <label class="switch" for='readStatus'></label>
+            <br>
+
+            <button id='add' type="submit">Add</button>
+        </fieldset>
+    </form>
+
+    <div id='bookContainer'>
+
+    </div>
+
+    <script src="./src/about.js">
     </script>
 </body>
 
