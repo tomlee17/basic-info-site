@@ -28,8 +28,8 @@ fieldset {
 #weather {
     text-align: center;
     margin: 1em auto;
-    background-color: springgreen;
-    width: 35vw;
+    background-color: goldenrod;
+    width: 30vw;
 }
 
 #cityInput {
@@ -38,21 +38,45 @@ fieldset {
 
 #weathCard {
     /*  background-image: linear-gradient(to bottom right, rgb(5, 11, 65), rgb(76, 0, 255));*/
-    width: 35vw;
-    height: 35vh;
+    width: 25vw;
+    height: 26vh;
     margin: auto;
     text-align: center;
 }
 
 figure {
     font-style: italic;
-    margin-left: 0;
+    margin: auto;
+    margin-top: 0;
 }
 
-#city {
+figure>img {
+    max-height: 6em;
+    margin: 0;
+}
+
+figcaption {
+    width: 20vw;
+    margin: auto;
+    margin-bottom: 1em;
+}
+
+.city {
     margin-top: 0.5em;
+    margin-bottom: 0;
 }
 
 footer {
     text-align: center;
+}
+
+.forecastCards {
+    background-color: deepskyblue;
+    width: 25%;
+    text-align: center;
+}
+
+.forecastCards {
+    display: inline-block;
+    outline-style: solid;
 }

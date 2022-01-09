@@ -75,21 +75,22 @@ const alarmFunc = (function() {
 const weathDOM = (function() {
     return {
         cityInput: document.getElementById('cityInput'),
-        city: document.getElementById('city'),
+        city: document.querySelector('.city'),
         icon: document.querySelector('.icon'),
-        temp: document.getElementById('temp'),
-        feelsLike: document.getElementById('feelsLike'),
-        humid: document.getElementById('humid'),
+        temp: document.querySelector('.temp'),
+        feelsLike: document.querySelector('.feelsLike'),
+        humid: document.querySelector('.humid'),
         button: document.querySelector('#cityInput+button'),
     }
 })();
 
-const weatherInfo = (function() {
+const currWeatherInfo = (function() {
     const key = '582cb38941f672dc1d32e2d498c2f0e3';
 
+    let cityVal;
     async function getWeath(defCity) {
-        const cityVal = weathDOM.cityInput.value || defCity;
         try {
+            cityVal = weathDOM.cityInput.value || defCity;
             const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityVal}&units=metric&appid=${key}`, { mode: 'cors' });
             if (!response.ok) throw Error;
             const weathData = await response.json();
@@ -107,7 +108,7 @@ const weatherInfo = (function() {
             const { main, name, weather } = weathData;
             weathDOM.city.textContent = `${name}`;
             weathDOM.icon.src = `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`;
-            weathDOM.icon.nextElementSibling.textContent = `${weather[0].description.charAt(0).toUpperCase()+weather[0].description.slice(1)}`;
+            weathDOM.icon.nextElementSibling.textContent = weather[0].description.charAt(0).toUpperCase() + weather[0].description.slice(1);
             weathDOM.temp.textContent = `Temperature: ${main.temp} \u00B0C`;
             weathDOM.feelsLike.textContent = `Feels like: ${main.feels_like} \u00B0C`;
             weathDOM.humid.textContent = `Humidity: ${main.humidity} %`;
@@ -121,4 +122,87 @@ const weatherInfo = (function() {
     weathDOM.cityInput.addEventListener('keydown', (e) => {
         if (e.key === 'Enter') weathDOM.button.click();
     })
+
+    return {
+        getCityVal() {
+            return cityVal;
+        },
+        key,
+    }
 })();
+
+const forecastDOM = (() => {
+    return {
+        forecastCont: document.getElementById('forecastCont'),
+    }
+})();
+
+const forecast = (() => {
+    async function getForecast() {
+        try {
+            const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${currWeatherInfo.getCityVal()}&units=metric&appid=${currWeatherInfo.key}`, { mode: 'cors' });
+            const forecastData = await response.json();
+            const { list } = forecastData;
+            return list;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    async function createCard(daysAfter) {
+        const forecastCard = document.getElementById('weathCard').cloneNode(true);
+
+        forecastCard.removeAttribute('id');
+        forecastCard.classList.add('forecastCards');
+        const forecastCardChild = [...forecastCard.children];
+        //       console.log(forecastCardChild)
+
+        const forecastData = await getForecast();
+        const newDay = newDayData(daysAfter, forecastData);
+        //     console.log(newDay)
+
+        let i = 0;
+        for (let x in newDay) {
+            if (x !== 'weatherIcon') {
+                //        console.log(x, i)
+                while (true) {
+                    if (forecastCardChild[i].tagName !== 'FIGURE') {
+                        forecastCardChild[i].textContent = newDay[x];
+                        //   console.log(i, forecastCardChild[i]);
+                    }
+                    if (x === 'weatherDesc') forecastCardChild[i].children[1].textContent = newDay[x];
+                    i++;
+                    break;
+                }
+            } else if (x === 'weatherIcon') {
+                // console.log(newDay[x])
+                forecastCardChild[i].children[0].src = newDay[x];
+            }
+        }
+        forecastDOM.forecastCont.appendChild(forecastCard);
+    }
+
+    function genAllForecasts() {
+        if (forecastDOM.forecastCont.children) forecastDOM.forecastCont.textContent = '';
+        for (let card = 1; card <= 4; card++) {
+            createCard(card);
+        }
+    };
+    genAllForecasts();
+    weathDOM.button.addEventListener('click', genAllForecasts);
+})();
+
+function newDayData(daysAfter, forecastData) {
+    const _dateTime = `${new Date(Date.now() + 8.64e7*daysAfter).toLocaleDateString('sv-SE')} 12:00:00`;
+    const _dayForecast = forecastData[forecastData.findIndex((timestamp) => timestamp.dt_txt === _dateTime)];
+    const { dt_txt, main, weather } = _dayForecast;
+
+    return {
+        date: dt_txt.split(' ')[0],
+        weatherIcon: `http://openweathermap.org/img/wn/${weather[0].icon}@2x.png`,
+        weatherDesc: weather[0].description.charAt(0).toUpperCase() + weather[0].description.slice(1),
+        temp: 'Temp: ' + main.temp,
+        feelsLike: 'Feels like: ' + main.feels_like,
+        humid: 'Humidity: ' + main.humidity,
+    }
+}
